@@ -18,6 +18,7 @@ do
       sudo apt install -y docker.io &&
       sudo systemctl enable docker &&
       sudo systemctl start docker &&
+      sudo usermod -aG docker \$(whoami) &&
       sudo mkdir -p /data &&
       sudo chown \$USER:\$USER /data
     "
