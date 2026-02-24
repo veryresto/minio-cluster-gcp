@@ -2,6 +2,38 @@
 
 This project provides a fully automated way to deploy a MinIO distributed cluster on GCP using `gcloud` and `Makefile`.
 
+## Architecture Diagram
+
+```mermaid
+graph TD
+    subgraph GCP ["Google Cloud Platform"]
+        subgraph VPC ["VPC: minio-lab"]
+            subgraph Subnet ["Subnet: 10.10.0.0/24"]
+                Bastion["Bastion Host<br/>(Public IP/SSH)"]
+                
+                subgraph Nodes ["MinIO Cluster"]
+                    M1["minio-1<br/>(Private IP)"]
+                    M2["minio-2<br/>(Private IP)"]
+                    M3["minio-3<br/>(Private IP)"]
+                    M4["minio-4<br/>(Private IP)"]
+                end
+            end
+            
+            Router["Cloud Router"]
+            NAT["Cloud NAT"]
+        end
+    end
+
+    User((User)) -- "SSH (Port 22)" --> Bastion
+    Bastion -- "Internal SSH" --> M1
+    Bastion -- "Internal SSH" --> M2
+    Bastion -- "Internal SSH" --> M3
+    Bastion -- "Internal SSH" --> M4
+    
+    M1 & M2 & M3 & M4 -- "Egress Traffic" --> NAT
+    NAT --> Internet((Internet))
+```
+
 ## Prerequisites
 
 - `gcloud` CLI installed and authenticated.
@@ -22,7 +54,7 @@ This project provides a fully automated way to deploy a MinIO distributed cluste
     make down
     ```
 
-## Architecture
+## Architecture Details
 
 - **Network:** Custom VPC with a single private subnet. SSH access is restricted to the bastion host via firewall rules.
 - **Bastion Host:** Publicly accessible VM used as a jump box.
