@@ -1,0 +1,9 @@
+PROJECT_ID := project-a376320f-1afa-48d7-a76
+REGION := asia-southeast2
+ZONE := asia-southeast2-b
+NETWORK := minio-lab
+SUBNET := minio-subnet
+SUBNET_CIDR := 10.10.0.0/24
+BASTION := bastion
+MINIO_STANDARD_NODES := minio-1 minio-2
+MINIO_SSD_NODES := minio-3 minio-4
