@@ -18,7 +18,6 @@ do
       sudo apt install -y docker.io &&
       sudo systemctl enable docker &&
       sudo systemctl start docker &&
-      sudo usermod -aG docker \$(whoami) &&
       sudo mkdir -p /data &&
       sudo chown \$USER:\$USER /data
     "
@@ -46,8 +45,8 @@ do
     --zone=$ZONE \
     --tunnel-through-iap \
     --command="
-      docker rm -f minio || true &&
-      docker run -d --name minio \
+      sudo docker rm -f minio || true &&
+      sudo docker run -d --name minio \
         -p 9000:9000 \
         -p 9001:9001 \
         -v /data:/data \
