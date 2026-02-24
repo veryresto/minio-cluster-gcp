@@ -7,3 +7,4 @@ SUBNET_CIDR := 10.10.0.0/24
 BASTION := bastion
 MINIO_STANDARD_NODES := minio-1 minio-2
 MINIO_SSD_NODES := minio-3 minio-4
+MINIO_ALL_NODES := minio-1 minio-2 minio-3 minio-4

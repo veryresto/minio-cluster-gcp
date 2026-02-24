@@ -2,10 +2,10 @@ include config.mk
 
 export
 
-.PHONY: up down network firewall bastion nodes nat cleanup
+.PHONY: up down network firewall bastion nodes nat bootstrap cleanup
 
-up: network firewall bastion nodes nat
-	@echo "Infrastructure is up!"
+up: network firewall bastion nodes nat bootstrap
+	@echo "Infrastructure is up and bootstrapped!"
 
 down: cleanup
 	@echo "Infrastructure is down!"
@@ -24,6 +24,9 @@ nodes:
 
 nat:
 	bash scripts/nat.sh
+
+bootstrap:
+	bash scripts/bootstrap.sh
 
 cleanup:
 	bash scripts/cleanup.sh
