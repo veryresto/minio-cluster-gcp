@@ -47,8 +47,8 @@ graph TD
     make up
     ```
 3.  **Access:**
-    - SSH into the bastion host: `gcloud compute ssh bastion --zone=asia-southeast2-a`
-    - From the bastion, you can SSH into any MinIO node using its private IP.
+    - **Direct SSH (via IAP):** `gcloud compute ssh minio-1 --zone=asia-southeast2-b --tunnel-through-iap`
+    - **Access MinIO WebUI:** Run `make tunnel` to create an SSH tunnel to `minio-1`, then open [http://localhost:9001](http://localhost:9001) in your browser.
 4.  **Teardown:** To destroy all resources, run:
     ```bash
     make down

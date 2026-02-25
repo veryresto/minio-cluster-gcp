@@ -14,8 +14,9 @@ do
     --zone=$ZONE \
     --tunnel-through-iap \
     --command="
-      sudo apt update -y &&
-      sudo apt install -y docker.io &&
+      export DEBIAN_FRONTEND=noninteractive
+      sudo apt-get update -y &&
+      sudo apt-get install -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' docker.io &&
       sudo systemctl enable docker &&
       sudo systemctl start docker &&
       sudo mkdir -p /data &&
@@ -47,8 +48,7 @@ do
     --command="
       sudo docker rm -f minio || true &&
       sudo docker run -d --name minio \
-        -p 9000:9000 \
-        -p 9001:9001 \
+        --network host \
         -v /data:/data \
         -e MINIO_ROOT_USER=admin \
         -e MINIO_ROOT_PASSWORD=password123 \
